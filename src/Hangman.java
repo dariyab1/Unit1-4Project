@@ -27,13 +27,17 @@ public class Hangman {
 
 
         int place;
+        if(letter.length()>1){
+            System.out.println(letter);
+        }
+        else{
 
         while (compareStr.indexOf(letter)!=-1){
             place=compareStr.indexOf(letter);
             compareStr=compareStr.substring(0,place)+"~"+compareStr.substring(place+1);
             currentStr=currentStr.substring(0,place)+letter+currentStr.substring(place+1);
         }
-        System.out.println("Word: " +currentStr);
+        System.out.println("Word: " +currentStr);}
     }
 
     public void printMan(int mistakes){
