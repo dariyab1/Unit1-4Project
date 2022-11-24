@@ -9,7 +9,7 @@ public class Main {
             System.out.println();
         }
 
-
+        String playAgain="yes";
         String newStr=word;
         String playerWord="";
 
@@ -21,16 +21,16 @@ public class Main {
         String lettersGuessed="";
         boolean lost=false;
 
+
+
         while (guessedWord!=true&&lost!=true){
             int place;
-            System.out.println("User two guess a letter:");
+            System.out.print("User two guess a letter:");
             guess=input.nextLine();
-            if(mistakes==6){
-                lost=true;
-            }
+
 
             if(lettersGuessed.contains(guess)){
-                System.out.println("You already guess that letter, try another one:");
+                System.out.println("You already guessed that letter, try another one:");
                 guess=input.nextLine();
             }
             if (newGame.letterIsInWord(guess)){
@@ -40,22 +40,38 @@ public class Main {
                     correct++;
 
                 }
+
             }
-            else if(!(newGame.letterIsInWord(guess))){
+            else {
                 mistakes++;
             }
+
             for(int i=0; i<100; i++){
                 System.out.println();
             }
-            newGame.printMan(mistakes);
+
+            lettersGuessed+=guess+" ";
+            if(mistakes==6){
+                newGame.printMan(mistakes);
+                System.out.println("You lost!");
+                System.out.println("The word was: "+ word);
+                lost=true;
+            }
+            else{
+                newGame.printMan(mistakes);
+                newGame.currentWord(guess);
+                System.out.println("Letters already guessed: "+lettersGuessed);
+            }
+
             if(correct==word.length()){
                 guessedWord=true;
+                System.out.println("Congrats! You guessed the word!");
             }
-            lettersGuessed+=guess+" ";
+
+
 
         }
-        System.out.println("you guessed the word!");
-        System.out.println(newStr);
+
 
 
     }

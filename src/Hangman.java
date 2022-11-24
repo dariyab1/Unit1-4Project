@@ -1,10 +1,17 @@
 public class Hangman {
     private String secretWord;
     private int length;
-    boolean endGame=false;
+    private String currentStr;
+    private boolean endGame=false;
+    private String compareStr;
     public Hangman(String secretWord){
         length=secretWord.length();
         this.secretWord=secretWord;
+        currentStr="";
+        for (int i =0; i<secretWord.length();i++){
+            currentStr+="-";
+        }
+        compareStr=secretWord;
     }
     public boolean letterIsInWord(String letter){
         if (secretWord.contains(letter)){
@@ -15,6 +22,20 @@ public class Hangman {
         }
 
     }
+
+    public void currentWord(String letter){
+
+
+        int place;
+
+        while (compareStr.indexOf(letter)!=-1){
+            place=compareStr.indexOf(letter);
+            compareStr=compareStr.substring(0,place)+"~"+compareStr.substring(place+1);
+            currentStr=currentStr.substring(0,place)+letter+currentStr.substring(place+1);
+        }
+        System.out.println("Word: " +currentStr);
+    }
+
     public void printMan(int mistakes){
         if(mistakes==0){
             System.out.println("  ______");
@@ -103,7 +124,6 @@ public class Hangman {
             System.out.println(" |      / \\");
             System.out.println(" |     /   \\");
             System.out.println("---");
-            System.out.println("You are dead!");
             endGame=true;
 
         }
