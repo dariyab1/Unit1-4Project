@@ -1,15 +1,21 @@
 import java.util.Scanner;
 public class Main {
-                       //also include a condition asking if the user wants to play again and if yes repeat the code segment.
-                       //finally randomize so that it is random which user goes first.
+
     public static void main(String[] args){
         Scanner input=new Scanner(System.in);
 
 
         String play="yes";
+        int playerTurn=(int)(Math.random()*2+1);
 
 
         while (play.equals("yes")){
+            if(playerTurn%2==1){
+                System.out.println("User 1 enter a word:");
+            }
+            else{
+                System.out.println("User 2 enter a word:");
+            }
             boolean guessedWord=false;
             int correctLetters=0;
             String guess;
@@ -17,13 +23,7 @@ public class Main {
             int mistakes=0;
             String lettersGuessed="";
             boolean lost=false;
-            int playerTurn=(int)(Math.random()*2+1);
-            if(playerTurn%2==1){
-                System.out.println("User 1 enter a word:");
-            }
-            else{
-                System.out.println("User 2 enter a word:");
-            }
+
 
 
 
