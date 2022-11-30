@@ -1,8 +1,9 @@
 import java.util.Scanner;
-public class Main {
+public class HangmanRunner {
 
     public static void main(String[] args){
         Scanner input=new Scanner(System.in);
+
 
 
         String play="yes";
@@ -28,7 +29,7 @@ public class Main {
 
 
             String word=input.nextLine();
-            Hangman newGame=new Hangman(word);
+            Hangman newGame= new Hangman(word);
             for(int i=0; i<100; i++){
                 System.out.println();
             }
