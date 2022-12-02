@@ -9,6 +9,9 @@ public class Hangman {
     private String currentStr;
     private boolean endGame=false;
     private String compareStr;
+    private String lettersGuessed;
+    private int mistakes;
+    private int correct;
 
 
     /**
@@ -24,6 +27,8 @@ public class Hangman {
             currentStr+="-";
         }
         compareStr=secretWord;
+        mistakes=0;
+        correct=0;
     }
 
     /**
@@ -63,6 +68,73 @@ public class Hangman {
         }
         System.out.println("Word: " +currentStr);}
     }
+
+
+    public void gamePlay(String guess){
+
+        int placeInWord;
+
+        while (endGame!=true){
+
+
+            if(lettersGuessed.contains(guess)){
+                System.out.println("You already guessed that letter, try another one:");
+            }
+
+            for(int i=0; i<100; i++){
+                System.out.println();
+            }
+            if(guess.equals(secretWord)) {
+                endGame = true;
+                printMan(mistakes);
+                currentWord(guess);
+
+            }
+            else if (letterIsInWord(guess)){
+                while(compareStr.indexOf(guess)!=-1){
+                    placeInWord=compareStr.indexOf(guess);
+                    compareStr=compareStr.substring(0,placeInWord)+"0"+compareStr.substring(placeInWord+1);
+                    correct++;
+
+                }
+            }
+            else {
+                mistakes++;
+            }
+            if(guess.length()==1){
+                lettersGuessed+=guess+" ";
+            }
+            if(mistakes==6){
+                printMan(mistakes);
+                System.out.println("You lost!");
+                System.out.println("The word was: "+ secretWord);
+                endGame=true;
+            }
+            else if(correct==secretWord.length()){
+                endGame=true;
+                System.out.println("Congrats! You guessed the word!");
+            }
+            else{
+                printMan(mistakes);
+                currentWord(guess);
+                System.out.println("Letters already guessed: "+lettersGuessed);
+            }
+
+
+        }
+
+    }
+
+
+    public boolean GameInPlay(){
+        return endGame;
+    }
+
+
+
+
+
+
 
     /**
      * Method for the Hangman class.  Prints out a hangman based on the number of mistakes made.  If number of
