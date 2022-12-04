@@ -10,8 +10,9 @@ public class Hangman {
     private boolean endGame=false;
     private String compareStr;
     private String lettersGuessed;
-    private int mistakes;
-    private int correct;
+    private int correct=0;
+    int mistakes=0;
+    boolean guessedWord=false;
 
 
     /**
@@ -27,8 +28,6 @@ public class Hangman {
             currentStr+="-";
         }
         compareStr=secretWord;
-        mistakes=0;
-        correct=0;
     }
 
     /**
@@ -61,88 +60,88 @@ public class Hangman {
         }
         else{
 
-        while (compareStr.indexOf(letter)!=-1){
-            place=compareStr.indexOf(letter);
-            compareStr=compareStr.substring(0,place)+"~"+compareStr.substring(place+1);
-            currentStr=currentStr.substring(0,place)+letter+currentStr.substring(place+1);
-        }
-        System.out.println("Word: " +currentStr);}
-    }
-
-
-    public void gamePlay(String guess){
-
-        int placeInWord;
-
-        while (endGame!=true){
-
-
-            if(lettersGuessed.contains(guess)){
-                System.out.println("You already guessed that letter, try another one:");
-            }
-
-            for(int i=0; i<100; i++){
-                System.out.println();
-            }
-            if(guess.equals(secretWord)) {
-                endGame = true;
-                printMan(mistakes);
-                currentWord(guess);
-
-            }
-            else if (letterIsInWord(guess)){
-                while(compareStr.indexOf(guess)!=-1){
-                    placeInWord=compareStr.indexOf(guess);
-                    compareStr=compareStr.substring(0,placeInWord)+"0"+compareStr.substring(placeInWord+1);
-                    correct++;
-
+            while (compareStr.indexOf(letter)!=-1){
+                if(letter.length()>1){
+                    currentStr=letter;
                 }
-            }
-            else {
-                mistakes++;
-            }
-            if(guess.length()==1){
-                lettersGuessed+=guess+" ";
-            }
-            if(mistakes==6){
-                printMan(mistakes);
-                System.out.println("You lost!");
-                System.out.println("The word was: "+ secretWord);
-                endGame=true;
-            }
-            else if(correct==secretWord.length()){
-                endGame=true;
-                System.out.println("Congrats! You guessed the word!");
-            }
-            else{
-                printMan(mistakes);
-                currentWord(guess);
-                System.out.println("Letters already guessed: "+lettersGuessed);
-            }
+                else{place=compareStr.indexOf(letter);
+                    compareStr=compareStr.substring(0,place)+"~"+compareStr.substring(place+1);
+                    currentStr=currentStr.substring(0,place)+letter+currentStr.substring(place+1);
+                }}
 
-
-        }
-
+            /*  System.out.println("Word: " +currentStr);*/}
     }
-
 
     public boolean GameInPlay(){
-        return endGame;
+        while (endGame!=true){
+            return true;
+        }
+        return false;
     }
 
 
 
+    public void guessWord(String guess){
 
 
+        int place;
+
+        if(guess.equals(secretWord)) {
+            guessedWord = true;
+            printMan();
+            System.out.println("Word: "+ guess);
+
+        }
+        else if(letterIsInWord(guess)){
+            while (compareStr.indexOf(guess)!=-1){
+                currentWord(guess);
+                correct++;
+            }
+        }
+        else {
+            mistakes++;
+        }
+        if(guess.length()==1){
+            lettersGuessed+=guess+" ";
+        }
+        if(mistakes==6){
+            printMan();
+            System.out.println("You lost!");
+            System.out.println("The word was: "+ secretWord);
+            endGame=true;
+        }
+        else if(currentStr.equals(secretWord)||guessedWord==true){
+            endGame=true;
+            printMan();
+            System.out.println(currentStr);
+            System.out.println("Congrats! You guessed the word!");
+
+        }
+        else{
+            printMan();
+            System.out.println("Word: "+currentStr);
+
+        }
+
+
+
+
+    }
+
+    public void pageBreak(){
+        for(int i=0; i<100; i++){
+            System.out.println();
+        }
+    }
 
 
     /**
      * Method for the Hangman class.  Prints out a hangman based on the number of mistakes made.  If number of
      * mistakes reach seven, variable endGame is set to true and the game will end.
-     * @param mistakes represents the number of mistakes made.
+     * represents the number of mistakes made.
      */
 
-    public void printMan(int mistakes){
+    public void printMan(){
         if(mistakes==0){
             System.out.println("  ______");
             System.out.println(" |      |");
@@ -241,3 +240,5 @@ public class Hangman {
 
 
 }
+
+
