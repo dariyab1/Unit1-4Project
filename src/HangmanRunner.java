@@ -19,7 +19,6 @@ public class HangmanRunner {
             newGame.pageBreak();
 
             while (newGame.GameInPlay()) {
-
                 if(playerTurn%2==1){
                     System.out.print("Player two guess a letter:");}
                 else{
@@ -27,6 +26,11 @@ public class HangmanRunner {
                 }
                 guess=input.nextLine();
                 newGame.pageBreak();
+                if(guess.length()>1&&guess.length()<secretWord.length()){
+                    System.out.println("That is not a letter.  Try again:");
+                    guess=input.nextLine();
+
+                }
 
 
                 if(lettersGuessed.contains(guess)){
@@ -36,19 +40,13 @@ public class HangmanRunner {
                 if(guess.length()==1){
                     lettersGuessed+=guess+" ";
                 }
-
                 newGame.guessWord(guess);
                 System.out.println("Letters already guessed: "+lettersGuessed);
-
-
-
             }
             playerTurn++;
             System.out.println("Do you want to play again(yes/no): ");
             play=input.nextLine();
         }
-
     }
-
 }
 
