@@ -72,6 +72,12 @@ public class Hangman {
             /*  System.out.println("Word: " +currentStr);*/}
     }
 
+    /**
+     * Method for the Hangman class.  If the user has not made six mistakes or has not guessed the word, the
+     * game is still in play.  In the case the user did either of the previous conditions, the game ends.
+     * @return returns true if game is still on and false if game has ended.
+     */
+
     public boolean GameInPlay(){
         while (endGame!=true){
             return true;
@@ -79,7 +85,12 @@ public class Hangman {
         return false;
     }
 
-
+    /**
+     * Method for the Hangman class. This is the logic behind the game.  If the user enters a letter that is in the secret
+     * word, that letter gets revealed in the dashes representing the letter from the method above.  If the user
+     * guesses incorrectly, their mistakes increase by 1 until they reach six in which case the game ends.
+     * @param guess is the letter the user is guessing
+     */
 
     public void guessWord(String guess){
 
@@ -128,6 +139,10 @@ public class Hangman {
 
     }
 
+
+    /**
+     * Method for the Hangman class.  Prints a 100 lines to make it more visually appealing.
+     */
     public void pageBreak(){
         for(int i=0; i<100; i++){
             System.out.println();
@@ -138,7 +153,6 @@ public class Hangman {
     /**
      * Method for the Hangman class.  Prints out a hangman based on the number of mistakes made.  If number of
      * mistakes reach seven, variable endGame is set to true and the game will end.
-     * represents the number of mistakes made.
      */
 
     public void printMan(){
