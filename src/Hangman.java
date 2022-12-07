@@ -100,7 +100,7 @@ public class Hangman {
         if(guess.equals(secretWord)) {
             guessedWord = true;
             printMan();
-            System.out.println("Word: "+ guess);
+            System.out.println("Word: "+ currentStr);
 
         }
         else if(letterIsInWord(guess)){
@@ -122,9 +122,10 @@ public class Hangman {
             endGame=true;
         }
         else if(currentStr.equals(secretWord)||guessedWord==true){
+
             endGame=true;
             printMan();
-            System.out.println(currentStr);
+            System.out.println("Word: "+guess);
             System.out.println("Congrats! You guessed the word!");
 
         }
@@ -247,10 +248,6 @@ public class Hangman {
 
         }
     }
-
-
-
-
 
 
 }
